@@ -1,4 +1,4 @@
-base_url='https://raw.githubusercontent.com/Protino/dump/master/'
+base_url="https://raw.githubusercontent.com/Protino/dump/master/"
 thumb_url=base_url+'thumb/'
 
 names=['audi.jpg', 'beach.jpg', 'bliss.jpg', 'coffee.jpg', 'green.jpg', 'hills.jpg', 'lake.jpg', 'white_house.jpg', 'random.jpg', 'sat.jpg', 'scape.jpg', 'shuttle.jpg', 'sky.jpg', 'solar_system.jpg', 'sunset.jpg', 'vegas.jpg', 'whatever.jpg', 'orange.jpg']
@@ -29,9 +29,9 @@ body = (trippy,psych,satan)
 x=y=0
 
 for item in json:
-    item['body']=body[x%len(body)];x+=1
-    item['photo']=photos[y%len(photos)]
-    item['thumb']=thumbs[y%len(thumbs)];y+=1
+    item["body"]=body[x%len(body)];x+=1
+    item["photo"]=photos[y%len(photos)]
+    item["thumb"]=thumbs[y%len(thumbs)];y+=1
 
 with open('data.json','w')as f:
     f.write("["+'\n,'.join(list(map(str,json)))+"]")

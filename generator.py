@@ -55,6 +55,7 @@ thumbs=[thumb_url+x for x in names]
 
 def construct_json():
     print ("Constructing json");
+    global default_json
     x=y=z=0
     for item in default_json:
         item["body"]=body[x] if use_udacity_content else body[x%len(body)];x+=1
@@ -65,7 +66,7 @@ def construct_json():
 
 def save():
     print ("Saving json data");
-    str_json="["+''.join(list(map(str,default_json)))+"]"
+    str_json="["+','.join(list(map(str,default_json)))+"]"
     with open('data.json','w')as f:
         f.write(str_json)
     with open('data.json','r') as f:
@@ -76,8 +77,9 @@ def save():
 
 def test_endpoint():
     response =  requests.get(data_url)
-    data=ast.literal_eval(response.text)
-    print ("Test completed successfully" if data==default_json else "Incorrect response")
+    data=response.text
+    with open('data.json','r') as f:
+        print ("Test completed successfully" if str(f.read())==str(data) else "Incorrect response")
 
 def main():
     construct_json();save()

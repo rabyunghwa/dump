@@ -65,7 +65,7 @@ def construct_json():
 
 def save():
     print ("Saving json data");
-    str_json="["+'\n,'.join(list(map(str,default_json)))+"]"
+    str_json="["+''.join(list(map(str,default_json)))+"]"
     with open('data.json','w')as f:
         f.write(str_json)
     with open('data.json','r') as f:
@@ -77,10 +77,10 @@ def save():
 def test_endpoint():
     response =  requests.get(data_url)
     data=ast.literal_eval(response.text)
-    print ("Test completed successfully" if data==json else "Incorrect response"           )
+    print ("Test completed successfully" if data==default_json else "Incorrect response")
 
 def main():
-    #construct_json();save()
+    construct_json();save()
     #Make sure the changes are committed and pushed else test will fail
     test_endpoint()
     

@@ -29,7 +29,7 @@ use_udacity_content = False
 
 base_url=("https://raw.githubusercontent.com/Protino/dump/master/","https://dl.dropboxusercontent.com/u/231329/xyzreader_data/")[use_udacity_images]
 
-photo_url=base_url+'photos/'
+photo_url=base_url+'images/'
 thumb_url=base_url+'thumbs/'
 data_url="https://raw.githubusercontent.com/Protino/dump/master/data.json"
 
@@ -81,20 +81,20 @@ def test_endpoint():
     with open('data.json','r') as f:
         local_data=ast.literal_eval(f.read())
     assert (len(remote_data)==len(local_data))
-    print ('Mismatches - ')
     for i in range(len(remote_data)):
         x,y=remote_data[i],local_data[i]
         y_values=y.values()
         if (x!=y):
             for key,value in x.items():
                 if value not in y_values:
-                    print (key,x['title'])
-    #for x,y in (remote_data,local_data):
-     #   if(x!=y):print (x,y)
-    #print ("Test completed successfully" if ==data else "Incorrect response")
+                    print ('Mismatch found for key - ',key,' and title ',x['title'])
+                    
+    print ("Test completed successfully" if local_data==remote_data else "Incorrect response")
 
 def main():
     construct_json();save()
+
+def tests():
     #Make sure the changes are committed and pushed else test will fail
     test_endpoint()
     

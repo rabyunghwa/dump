@@ -1,4 +1,4 @@
-import json,requests,ast
+import requests,ast
 '''
 data
 '''
@@ -11,7 +11,7 @@ trippy="""So, there was this DJ He was like, kicking off, I don't know what he w
 I mean, I have like, vague recollections and like, a general feeling of happiness<br>And he was like, no that song, man!<br><br><i><br>Eat, sleep, code, repeat<br>Eat, sleep, code, repeat<br></i><br>
 So I came out of my room, there was dark, and there was night and there were street lamps<br>I was pretty, like, I dunno, I went back to my room<br>So I went in to this website called <a href='http://uncyclopedia.wikia.com/wiki/Main_Page'>uncyclopedia.com</a>  and read some articles, and suddenly it was tomorrow and then tomorrow was today,<br>And then I found this chat room and I went into the room and the room was banging and the music was like, really loud. So I left.<br>I was codin' and suddenly I was helpin' this dude to get rid of a bug and suddenly he was being rude and all he kept saying was<br><br><i>Eat, sleep, code, repeat<br> Eat, sleep, code, repeat</i><br>He said yo, I'm a coder<br>And then he just started<br> To make this thing out of perl code,<br>And I swear to god it said<br><i>Eat, sleep, code, repeat<br> Eat, sleep, code, repeat</i><br>"""
 
-psych="""Paroxysm of global economics <a href='http://www.google.com'>Google Search</a> event take root and flourish, realm of the galaxies take root and flourish light years, circumnavigated Tunguska event Vangelis. Realm of the galaxies as a patch of light extraplanetary?<br><br>The carbon in our apple pies hundreds of thousands of brilliant syntheses cosmic ocean Hypatia explorations across the centuries take root and flourish muse about with pretty stories for which there's little good evidence. Tunguska event birth billions upon billions venture tesseract billions upon billions! Muse about dream of the mind's eye! Radio telescope. The only home we've ever known with pretty stories for which there's little good evidence! Hydrogen atoms cosmic fugue brain is the seed of intelligence the only home we've ever known? Inconspicuous motes of rock and gas of brilliant syntheses.<br><br>Network of wormholes across the centuries Jean-François Champollion hearts of the stars? Vastness is bearable only through love, a still more glorious dawn awaits worldlets the carbon in our apple pies worldlets citizens of distant epochs corpus callosum quasar ship of the imagination. Colonies something incredible is waiting to be known from which we spring billions upon billions, paroxysm of global death with pretty stories for which there's little good evidence, intelligent beings astonishment.<br><br>Brain is the seed of intelligence, billions upon billions, corpus callosum trillion stirred by starlight consciousness cosmic fugue dispassionate extraterrestrial observer.<br><br>Bits of moving fluff. Muse about Apollonius of Perga worldlets the only home we've ever known dispassionate extraterrestrial observer with pretty stories for which there's little good evidence venture at the edge of forever, laws of physics muse about.<br><br>Photos courtesy of <a href='https://unsplash.com/'>Unsplash.com</a>."""
+psych="""Paroxysm of global economics <a href='http://www.google.com'>Google Search</a> event take root and flourish, realm of the galaxies take root and flourish light years, circumnavigated Tunguska event Vangelis. Realm of the galaxies as a patch of light extraplanetary?<br><br>The carbon in our apple pies hundreds of thousands of brilliant syntheses cosmic ocean Hypatia explorations across the centuries take root and flourish muse about with pretty stories for which there's little good evidence. Tunguska event birth billions upon billions venture tesseract billions upon billions! Muse about dream of the mind's eye! Radio telescope. The only home we've ever known with pretty stories for which there's little good evidence! Hydrogen atoms cosmic fugue brain is the seed of intelligence the only home we've ever known? Inconspicuous motes of rock and gas of brilliant syntheses.<br><br>Network of wormholes across the centuries Jean-Francois Champollion hearts of the stars? Vastness is bearable only through love, a still more glorious dawn awaits worldlets the carbon in our apple pies worldlets citizens of distant epochs corpus callosum quasar ship of the imagination. Colonies something incredible is waiting to be known from which we spring billions upon billions, paroxysm of global death with pretty stories for which there's little good evidence, intelligent beings astonishment.<br><br>Brain is the seed of intelligence, billions upon billions, corpus callosum trillion stirred by starlight consciousness cosmic fugue dispassionate extraterrestrial observer.<br><br>Bits of moving fluff. Muse about Apollonius of Perga worldlets the only home we've ever known dispassionate extraterrestrial observer with pretty stories for which there's little good evidence venture at the edge of forever, laws of physics muse about.<br><br>Photos courtesy of <a href='https://unsplash.com/'>Unsplash.com</a>."""
 
 satan="""Satan (who also goes by the aliases Lucifer, The Devil, and Beelzebub to avoid tax collectors) is the primary antagonist in the best-selling Christian novel The Bible. His character is usually comically considered the epitome of evil, and he is often feared, mocked, or just marginalized. In crafting his image - the horns, hooves, trident used for prodding passerby or sending his enemies to the depths, and all - the Catholic Church took inspiration from the Wiccan Horned God and the Greek god Pan, turning loved archetypes into an evil presence though the wonders of propaganda.<br>
 <br>Dispute with god<br>Satan and God had a bit of an argument way back when over who should call the shots about what happens to the entire universe. Satan began by laying out his points in a fairly logical fashion, but that's when it all went to hell (pun intended). This discussion between the two of them was the catalyst that sparked God's pretend rage, causing some major smiting and Satan being thrown just outside of the Pearly Gates where he set up his own kingdom and a lemonade stand.
@@ -77,9 +77,21 @@ def save():
 
 def test_endpoint():
     response =  requests.get(data_url)
-    data=response.text
+    remote_data=ast.literal_eval(response.text)
     with open('data.json','r') as f:
-        print ("Test completed successfully" if str(f.read())==str(data) else "Incorrect response")
+        local_data=ast.literal_eval(f.read())
+    assert (len(remote_data)==len(local_data))
+    print ('Mismatches - ')
+    for i in range(len(remote_data)):
+        x,y=remote_data[i],local_data[i]
+        y_values=y.values()
+        if (x!=y):
+            for key,value in x.items():
+                if value not in y_values:
+                    print (key,x['title'])
+    #for x,y in (remote_data,local_data):
+     #   if(x!=y):print (x,y)
+    #print ("Test completed successfully" if ==data else "Incorrect response")
 
 def main():
     construct_json();save()

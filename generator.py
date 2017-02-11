@@ -1,13 +1,10 @@
-base_url="https://raw.githubusercontent.com/Protino/dump/master/"
-thumb_url=base_url+'thumb/'
+import json,requests,ast
+'''
+data
+'''
 
-names=['audi.jpg', 'beach.jpg', 'bliss.jpg', 'coffee.jpg', 'green.jpg', 'hills.jpg', 'lake.jpg', 'white_house.jpg', 'random.jpg', 'sat.jpg', 'scape.jpg', 'shuttle.jpg', 'sky.jpg', 'solar_system.jpg', 'sunset.jpg', 'vegas.jpg', 'whatever.jpg', 'orange.jpg']
-titles=['Mysteries of the Universe Solved', "Dude's State Of Mind", 'An Empire State of Mind', '10 Tips for Hipster Coffee Parties', 'How I Tried Climbing And Broke My Leg', 'Lost In The Wilderness', 'Why I Love Lakes', 'My White House', 'Jumping From A Space Shuttle in 3 easy steps', '3 Great Dessert Recipes That Martians Adore', 'Lost In The Wilderness - II', 'What I Found Near The Launch Pad', 'Illuminati', "Doctor Strange's Mystical Universe", "I Can't Get Enough Fantastic Sunsets", 'How I Sold My Mansion For Free', 'Lost In The Wierdness']
+default_json=[{'author': 'Carl Sagan', 'id': '4', 'published_date': '2013-06-20T00:00:00.000Z'}, {'author': 'Edgar Allen Poe', 'id': '2', 'published_date': '2013-01-19T00:00:00.000Z'}, {'author': 'Ernest Hemingway', 'id': '11', 'published_date': '2013-06-19T00:00:00.000Z'}, {'author': 'Vincent Van Gogh', 'id': '3', 'published_date': '2013-05-10T00:00:00.000Z'}, {'author': 'Tom Brokaw', 'id': '1', 'published_date': '2013-05-02T00:00:00.000Z'}, {'author': 'Thomas Edison', 'id': '5', 'published_date': '2013-03-19T00:00:00.000Z'}, {'author': 'Plato', 'id': '7', 'published_date': '2013-01-16T00:00:00.000Z'}, {'author': 'Robin Williams', 'id': '8', 'published_date': '2013-01-15T00:00:00.000Z'}, {'author': 'Jacqueline Kennedy Onasis', 'id': '9', 'published_date': '2013-01-14T00:00:00.000Z'}, {'author': 'Pablo Picasso', 'id': '10', 'published_date': '2013-01-13T00:00:00.000Z'}, {'author': 'Margaret Thatcher', 'id': '6', 'published_date': '2013-01-12T00:00:00.000Z'}, {'author': 'Ernest Hemingway', 'id': '12', 'published_date': '2013-01-12T00:00:00.000Z'}, {'author': 'Ernest Hemingway', 'id': '13', 'published_date': '2013-01-12T00:00:00.000Z'}, {'author': 'Ernest Hemingway', 'id': '14', 'published_date': '2013-01-12T00:00:00.000Z'}, {'author': 'Ernest Hemingway', 'id': '15', 'published_date': '2013-01-12T00:00:00.000Z'}, {'author': 'Ernest Hemingway', 'id': '16', 'published_date': '2013-01-12T00:00:00.000Z'}, {'author': 'Ernest Hemingway', 'id': '17', 'published_date': '2013-01-12T00:00:00.000Z'}]
 
-photos=[base_url+x for x in names]
-thumbs=[thumb_url+x for x in names]
-
-json = [{'aspect_ratio': -1, 'thumb': '', 'author': 'Carl Sagan', 'title': '', 'body': '', 'photo': '', 'id': '4', 'published_date': '2013-06-20T00:00:00.000Z'}, {'aspect_ratio': -1, 'thumb': '', 'author': 'Edgar Allen Poe', 'title': '', 'body': '', 'photo': '', 'id': '2', 'published_date': '2013-01-19T00:00:00.000Z'}, {'aspect_ratio': -1, 'thumb': '', 'author': 'Ernest Hemingway', 'title': '', 'body': '', 'photo': '', 'id': '11', 'published_date': '2013-06-19T00:00:00.000Z'}, {'aspect_ratio': -1, 'thumb': '', 'author': 'Vincent Van Gogh', 'title': '', 'body': '', 'photo': '', 'id': '3', 'published_date': '2013-05-10T00:00:00.000Z'}, {'aspect_ratio': -1, 'thumb': '', 'author': 'Tom Brokaw', 'title': '', 'body': '', 'photo': '', 'id': '1', 'published_date': '2013-05-02T00:00:00.000Z'}, {'aspect_ratio': -1, 'thumb': '', 'author': 'Thomas Edison', 'title': '', 'body': '', 'photo': '', 'id': '5', 'published_date': '2013-03-19T00:00:00.000Z'}, {'aspect_ratio': -1, 'thumb': '', 'author': 'Plato', 'title': '', 'body': '', 'photo': '', 'id': '7', 'published_date': '2013-01-16T00:00:00.000Z'}, {'aspect_ratio': -1, 'thumb': '', 'author': 'Robin Williams', 'title': '', 'body': '', 'photo': '', 'id': '8', 'published_date': '2013-01-15T00:00:00.000Z'}, {'aspect_ratio': -1, 'thumb': '', 'author': 'Jacqueline Kennedy Onasis', 'title': '', 'body': '', 'photo': '', 'id': '9', 'published_date': '2013-01-14T00:00:00.000Z'}, {'aspect_ratio': -1, 'thumb': '', 'author': 'Pablo Picasso', 'title': '', 'body': '', 'photo': '', 'id': '10', 'published_date': '2013-01-13T00:00:00.000Z'}, {'aspect_ratio': -1, 'thumb': '', 'author': 'Margaret Thatcher', 'title': '', 'body': '', 'photo': '', 'id': '6', 'published_date': '2013-01-12T00:00:00.000Z'}, {'aspect_ratio': -1, 'thumb': '', 'author': 'Ernest Hemingway', 'title': '', 'body': '', 'photo': '', 'id': '12', 'published_date': '2013-01-12T00:00:00.000Z'}, {'aspect_ratio': -1, 'thumb': '', 'author': 'Ernest Hemingway', 'title': '', 'body': '', 'photo': '', 'id': '13', 'published_date': '2013-01-12T00:00:00.000Z'}, {'aspect_ratio': -1, 'thumb': '', 'author': 'Ernest Hemingway', 'title': '', 'body': '', 'photo': '', 'id': '14', 'published_date': '2013-01-12T00:00:00.000Z'}, {'aspect_ratio': -1, 'thumb': '', 'author': 'Ernest Hemingway', 'title': '', 'body': '', 'photo': '', 'id': '15', 'published_date': '2013-01-12T00:00:00.000Z'}, {'aspect_ratio': -1, 'thumb': '', 'author': 'Ernest Hemingway', 'title': '', 'body': '', 'photo': '', 'id': '16', 'published_date': '2013-01-12T00:00:00.000Z'}, {'aspect_ratio': -1, 'thumb': '', 'author': 'Ernest Hemingway', 'title': '', 'body': '', 'photo': '', 'id': '17', 'published_date': '2013-01-12T00:00:00.000Z'}]
 trippy="""So, there was this DJ He was like, kicking off, I don't know what he was doing.But it was sick, man. Like, he was like, hands in the air, like, screaming out. So, like, this clown started covering us in silly string and we were all like, writhing around on the floor, at least I thought we were and then this cat walked in, you know, not like a cat, like a feline cat, like a real, like, you know, like, you know what I'm saying dawg? Like cats and dogs. It was raining, it wasn't raining, we were coding. I ate her, man. Not like eight, like nine. Like, I ate her she was fine, man. Like, you know, like, eatin' and sleepin' and ravin' repeatin', you know. There were people dancing I think, or maybe they were cops. I think they might of been cops. Well, anyway, like, I was just dancing and dancing, Oh, no, they were cops.<br>
 <i>Shit.</i><br>And this cop just looked at me. And I don't know whether he was really saying it, but all he kept saying was<br>
 <i>Eat, sleep, code, repeat,<br>Eat, sleep, code, repeat</i><br>Suddenly I think I'm on an interview<br>Suddenly I think I'm selling myself,<br>But I'm not<br>I'm just dreaming,<br> I'm just dreaming,<br>I'm just sleepin'<br>I'm just eatin'<br>I'm just codin'<br>I'm just repeatin'<br>And on, and on, and on, and on, and on, and on<br><br>I felt this thud, it was a bsod, like, boom clutch boom, man<br>Sorry dude, I thought you were a object<br>I went into this cubicle, and the guy was, like, you need something?<br>I'm like no, I'm just dancing to the hum of your cpu fan<br>He's like then get the out of my cubicle,<br>I'm like, I like it here, I like the lighting<br>Besides I like your assistant, she looks pretty hot<br>So I got her by the arm, and I took her outside, and I gave her to the homeless guy<br>He gave me all his google cloud credits<br>And all he kept saying was<br><i><br>Eat, sleep, code, repeat<br>Eat, sleep, code, repeat<br></i><br>'Til like John called me the next morning,<br>Dude, like, where were you last night?<br>I was like, I was there<br>He was like, oh, yeah<br>And then he was like, remember that tune they were playing?<br>I'm like, I don't remember anything, man<br>
@@ -24,18 +21,70 @@ God has laughed about what happened that day ever since, but because Satan and G
 Satan is also affiliated with the rap industry and making deals with Jay-Z and Beyonce with exposure of the aluminary and demon Sasha Fierce. He also apparently knows how to play the fiddle, but isn't very good at it, and his band once lost a battle of the bands to a little boy from Georgia named Johnny and a bunch of chicken. Don't mention this to the big guy though, unless you want a face full of fire.
 Satan is mentioned or alluded to in a large number of songs, such as "Sympathy for the Devil" by The Rolling Stones, "Lucifer Sam" by Pink Floyd, "Highway to Hell" by AC/DC, "Bohemian Rhapsody" by Queen, and if you play "Stairway to Heaven" by Led Zeppelin backwards while they're singing "If there's a bustle in your hedgerow, don't be alarmed now...", it really sounds like "Here's to my sweet Satan" and "I sing because I live with Satan" (seriously dude, try it)."""
 
-body = (trippy,psych,satan)
 
-x=y=z=0
+# If set to true, uses udacity provided images from dropbox which have aspect ratios and are smaller in size
+use_udacity_images = True
+use_udacity_content = False
 
-for item in json:
-    item["body"]=body[x%len(body)];x+=1
-    item["photo"]=photos[y%len(photos)]
-    item["thumb"]=thumbs[y%len(thumbs)];y+=1
-    item["title"]=titles[z];z+=1
 
-with open('data.json','w')as f:
-    f.write("["+'\n,'.join(list(map(str,json)))+"]")
+base_url=("https://raw.githubusercontent.com/Protino/dump/master/","https://dl.dropboxusercontent.com/u/231329/xyzreader_data/")[use_udacity_images]
+
+photo_url=base_url+'photos/'
+thumb_url=base_url+'thumbs/'
+data_url="https://raw.githubusercontent.com/Protino/dump/master/data.json"
+
+if use_udacity_images:
+    names = ['p004.jpg', 'p002.jpg', 'p011.jpg', 'p003.jpg', 'p001.jpg', 'p005.jpg', 'p007.jpg', 'p008.jpg', 'p009.jpg', 'p010.jpg', 'p006.jpg', 'p012.jpg', 'p013.jpg', 'p014.jpg', 'p015.jpg', 'p016.jpg', 'p017.jpg']
+    aspect_ratios = [1.49925, 1.49925, 0.66667, 1.49925, 1.50376, 1.49925, 1.49925, 1.49925, 1, 1.49925, 1.49925, 1, 1.49925, 1.49925, 1.50602, 1.50602, 1.11235]
+else:
+    #Following are the repository images, not the udacity ones. These are more beautiful but are around ~400 kb, making app slower to render
+    names = ['audi.jpg', 'beach.jpg', 'bliss.jpg', 'coffee.jpg', 'green.jpg', 'hills.jpg', 'lake.jpg', 'white_house.jpg', 'random.jpg', 'sat.jpg', 'scape.jpg', 'shuttle.jpg', 'sky.jpg', 'solar_system.jpg', 'sunset.jpg', 'vegas.jpg', 'whatever.jpg', 'orange.jpg']
+    aspects_ratios = [-1]*len(names)
+
+if use_udacity_content:
+    titles=['Mysteries of the Universe Solved', 'A Flatiron State of Mind', 'An Empire State of Mind', '10 Tips for Hipster Tea Parties', 'My Story of Climbing a Mountain', 'How Fido Got His Bone Back', 'Why I Love Yellow', "Agriculturist's Weekly Update, Delivered Once Daily, 24/7", 'Brooklyn Sidewalks Anonymous', '3 Great Dessert Recipes for This Weekend', 'TV in Modern Beach Environments', 'What I Found While Swimming', 'Bourgeois Office Furniture', 'String Beans and What They Mean for You', "I Can't Get Enough Fantastic Sunsets", 'The Beauty That is Mount Pumpkinfoot', "Busy Streets Are Still Busy, Even If You Don't Want Them To Be"]
+    body=(psych)
+else:
+    titles=['Mysteries of the Universe Solved', "Dude's State Of Mind", 'An Empire State of Mind', '10 Tips for Hipster Coffee Parties', 'How I Tried Climbing And Broke My Leg', 'Lost In The Wilderness', 'Why I Love Lakes', 'My White House', 'Jumping From A Space Shuttle in 3 easy steps', '3 Great Dessert Recipes That Martians Adore', 'Lost In The Wilderness - II', 'What I Found Near The Launch Pad', 'Illuminati', "Doctor Strange's Mystical Universe", "I Can't Get Enough Fantastic Sunsets", 'How I Sold My Mansion For Free', 'Lost In The Wierdness']
+    body=(trippy,psych,satan)
+    
+    
+
+photos=[photo_url+x for x in names]
+thumbs=[thumb_url+x for x in names]
+
+def construct_json():
+    print ("Constructing json");
+    x=y=z=0
+    for item in default_json:
+        item["body"]=body[x] if use_udacity_content else body[x%len(body)];x+=1
+        item["photo"]=photos[y%len(photos)]
+        item["thumb"]=thumbs[y%len(thumbs)];y+=1
+        item["title"]=titles[z]
+        item["aspect_ratio"]=aspect_ratios[z];z+=1
+
+def save():
+    print ("Saving json data");
+    str_json="["+'\n,'.join(list(map(str,default_json)))+"]"
+    with open('data.json','w')as f:
+        f.write(str_json)
+    with open('data.json','r') as f:
+        if f.read()!=str_json:
+            raise Exception('Save failed!')
+        else:
+            print ("Successfully saved json data");
+
+def test_endpoint():
+    response =  requests.get(data_url)
+    data=ast.literal_eval(response.text)
+    print ("Test completed successfully" if data==json else "Incorrect response"           )
+
+def main():
+    #construct_json();save()
+    #Make sure the changes are committed and pushed else test will fail
+    test_endpoint()
+    
+if __name__=='__main__':main()
     
 
 

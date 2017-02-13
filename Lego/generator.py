@@ -26,11 +26,11 @@ use_udacity_images = True
 use_udacity_content = False
 
 
-base_url=("https://raw.githubusercontent.com/Protino/dump/master/","https://dl.dropboxusercontent.com/u/231329/xyzreader_data/")[use_udacity_images]
+base_url=("https://raw.githubusercontent.com/Protino/dump/master/Lego","https://dl.dropboxusercontent.com/u/231329/xyzreader_data/")[use_udacity_images]
 
 photo_url=base_url+'images/'
 thumb_url=base_url+'thumbs/'
-data_url="https://raw.githubusercontent.com/Protino/dump/master/data.json"
+data_url="https://raw.githubusercontent.com/Protino/dump/master/Lego/data.json"
 
 if use_udacity_images:
     names = ['p004.jpg', 'p002.jpg', 'p011.jpg', 'p003.jpg', 'p001.jpg', 'p005.jpg', 'p007.jpg', 'p008.jpg', 'p009.jpg', 'p010.jpg', 'p006.jpg', 'p012.jpg', 'p013.jpg', 'p014.jpg', 'p015.jpg', 'p016.jpg', 'p017.jpg']

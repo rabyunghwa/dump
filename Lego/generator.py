@@ -26,7 +26,7 @@ use_udacity_images = False
 use_udacity_content = False
 
 
-base_url=("https://raw.githubusercontent.com/Protino/dump/master/Lego","https://dl.dropboxusercontent.com/u/231329/xyzreader_data/")[use_udacity_images]
+base_url=("https://raw.githubusercontent.com/Protino/dump/master/Lego/","https://dl.dropboxusercontent.com/u/231329/xyzreader_data/")[use_udacity_images]
 
 photo_url=base_url+'images/'
 thumb_url=base_url+'thumbs/'
@@ -91,9 +91,9 @@ def test_endpoint():
     print ("Test completed successfully" if local_data==remote_data else "Incorrect response")
 
 def main():
-    construct_json();save()
+    #construct_json();save()
     #Make sure the changes are committed,pushed and about 30s are elapsed else test will fail
-    #test_endpoint()
+    test_endpoint()
     
 if __name__=='__main__':main()
     

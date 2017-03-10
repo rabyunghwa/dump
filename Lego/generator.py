@@ -22,7 +22,7 @@ Satan is mentioned or alluded to in a large number of songs, such as "Sympathy f
 
 
 # If set to true, uses udacity provided images from dropbox which have aspect ratios and are smaller in size
-use_udacity_images = True
+use_udacity_images = False
 use_udacity_content = False
 
 
@@ -30,7 +30,7 @@ base_url=("https://raw.githubusercontent.com/Protino/dump/master/Lego","https://
 
 photo_url=base_url+'images/'
 thumb_url=base_url+'thumbs/'
-data_url="https://raw.githubusercontent.com/Protino/dump/master/Lego/data.json"
+data_url="https://raw.githubusercontent.com/Protino/dump/master/Lego/new_data.json"
 
 if use_udacity_images:
     names = ['p004.jpg', 'p002.jpg', 'p011.jpg', 'p003.jpg', 'p001.jpg', 'p005.jpg', 'p007.jpg', 'p008.jpg', 'p009.jpg', 'p010.jpg', 'p006.jpg', 'p012.jpg', 'p013.jpg', 'p014.jpg', 'p015.jpg', 'p016.jpg', 'p017.jpg']
@@ -38,7 +38,7 @@ if use_udacity_images:
 else:
     #Following are the repository images, not the udacity ones. These are more beautiful but are around ~400 kb, making app slower to render
     names = ['audi.jpg', 'beach.jpg', 'bliss.jpg', 'coffee.jpg', 'green.jpg', 'hills.jpg', 'lake.jpg', 'white_house.jpg', 'random.jpg', 'sat.jpg', 'scape.jpg', 'shuttle.jpg', 'sky.jpg', 'solar_system.jpg', 'sunset.jpg', 'vegas.jpg', 'whatever.jpg', 'orange.jpg']
-    aspects_ratios = [-1]*len(names)
+    aspect_ratios = [-1]*len(names)
 
 if use_udacity_content:
     titles=['Mysteries of the Universe Solved', 'A Flatiron State of Mind', 'An Empire State of Mind', '10 Tips for Hipster Tea Parties', 'My Story of Climbing a Mountain', 'How Fido Got His Bone Back', 'Why I Love Yellow', "Agriculturist's Weekly Update, Delivered Once Daily, 24/7", 'Brooklyn Sidewalks Anonymous', '3 Great Dessert Recipes for This Weekend', 'TV in Modern Beach Environments', 'What I Found While Swimming', 'Bourgeois Office Furniture', 'String Beans and What They Mean for You', "I Can't Get Enough Fantastic Sunsets", 'The Beauty That is Mount Pumpkinfoot', "Busy Streets Are Still Busy, Even If You Don't Want Them To Be"]
@@ -66,9 +66,9 @@ def construct_json():
 def save():
     print ("Saving json data");
     str_json="["+','.join(list(map(str,default_json)))+"]"
-    with open('data.json','w')as f:
+    with open('new_data.json','w')as f:
         f.write(str_json)
-    with open('data.json','r') as f:
+    with open('new_data.json','r') as f:
         if f.read()!=str_json:
             raise Exception('Save failed!')
         else:
@@ -77,7 +77,7 @@ def save():
 def test_endpoint():
     response =  requests.get(data_url)
     remote_data=ast.literal_eval(response.text)
-    with open('data.json','r') as f:
+    with open('new_data.json','r') as f:
         local_data=ast.literal_eval(f.read())
     assert (len(remote_data)==len(local_data))
     for i in range(len(remote_data)):
@@ -91,9 +91,9 @@ def test_endpoint():
     print ("Test completed successfully" if local_data==remote_data else "Incorrect response")
 
 def main():
-    #construct_json();save()
+    construct_json();save()
     #Make sure the changes are committed,pushed and about 30s are elapsed else test will fail
-    test_endpoint()
+    #test_endpoint()
     
 if __name__=='__main__':main()
     
